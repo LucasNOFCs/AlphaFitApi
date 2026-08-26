@@ -1,2 +1,3 @@
-INITIAL PROJECT README
-TESTss
+Project AlphaFIT API
+
+API do projeto.
