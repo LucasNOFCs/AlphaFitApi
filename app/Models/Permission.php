@@ -9,6 +9,16 @@ class Permission extends Model
 {
     use HasUuids;
 
+    public function roles()
+    {
+        return $this->belongsToMany(
+            Role::class,
+            'role_permission',
+            'permission_id',
+            'role_id'
+        );
+    }
+
     protected $fillable = [
         'name',
         'description',
