@@ -5,11 +5,9 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMemberRequest extends FormRequest
+class AssignPlanRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
+
     public function authorize(): bool
     {
         return true;
@@ -23,9 +21,7 @@ class StoreMemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'number' => ['required', 'string', 'max:20'],
-            'email' => ['required', 'string', 'email', 'unique:members', 'max:255'],
+            'plan_id' => ['required', 'uuid', 'exists:plans,id'],
         ];
     }
 }

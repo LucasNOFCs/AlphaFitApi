@@ -3,7 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\MembersController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -36,5 +36,25 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::delete('plans/{id}', [PlansController::class, 'destroy'])
         ->middleware('permission:plans.delete');
+});
 
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('members', [MemberController::class, 'index'])
+        ->middleware('permission:members.view');
+
+    Route::get('member/{id}', [MemberController::class, 'show'])
+        ->middleware('permission:members.view');
+
+    Route::post('member', [MemberController::class, 'store'])
+        ->middleware('permission:members.create');
+
+    Route::match(['put', 'patch'], 'member/{id}', [MemberController::class, 'update'])
+        ->middleware('permission:members.update');
+
+    Route::delete('member/{id}', [MemberController::class, 'destroy'])
+        ->middleware('permission:members.delete');
+
+    Route::post('member/{memberId}/assign-plan', [MemberController::class, 'assignPlan'])
+        ->middleware('permission:members.assign-plan');
 });
