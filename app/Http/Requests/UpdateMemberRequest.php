@@ -23,7 +23,9 @@ class UpdateMemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['sometimes', 'string', 'max:255'],
+            'number' => ['sometimes', 'string', 'max:20'],
+            'email' => ['sometimes', 'string', 'email', 'unique:members,email,' . $this->route('id'), 'max:255'],
         ];
     }
 }
