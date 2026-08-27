@@ -11,7 +11,7 @@ class PlansService
         return Plan::all();
     }
 
-    public function show(int $id)
+    public function show(string $id)
     {
         return Plan::findOrFail($id);
     }
@@ -21,7 +21,7 @@ class PlansService
         return Plan::create($data);
     }
 
-    public function update(int $id, array $data)
+    public function update(string $id, array $data)
     {
         $plan = Plan::findOrFail($id);
 
@@ -30,7 +30,7 @@ class PlansService
         return $plan;
     }
 
-    public function destroy(int $id)
+    public function destroy(string $id)
     {
         $plan = Plan::findOrFail($id);
 
