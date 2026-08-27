@@ -23,7 +23,7 @@ class CheckPermission
 
         if (!$user->hasPermissions($permission)) {
             return response()->json([
-                'message' => 'Forbidden.',
+                'message' => 'Forbidden, not allowed.',
             ], 403);
         }
         
