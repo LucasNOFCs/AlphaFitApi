@@ -2,47 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Services\UserService;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private UserService $service;
+
+    public function __construct(UserService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        //
+        $users = $this->service->index();
+        return $users;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $user = $this->service->show($id);
+        return $user;
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $data = $request->validated();
+        $user = $this->service->store($data);
+        return $user;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function update(UpdateUserRequest $request, string $id)
+    {
+        $data = $request->validated();
+        $user = $this->service->update($id, $data);
+        return $user;
+    }
+
     public function destroy(string $id)
     {
-        //
+        $user = $this->service->destroy($id);
+        return ["user" => $user, "message" => "User deleted successfully"];
     }
 }

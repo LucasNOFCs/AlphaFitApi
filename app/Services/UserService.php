@@ -11,7 +11,7 @@ class UserService
         return User::all();
     }
 
-    public function show(int $id)
+    public function show(string $id)
     {
         return User::findOrFail($id);
     }
@@ -21,7 +21,7 @@ class UserService
         return User::create($data);
     }
 
-    public function update(int $id, array $data)
+    public function update(string $id, array $data)
     {
         $user = User::findOrFail($id);
 
@@ -30,7 +30,7 @@ class UserService
         return $user;
     }
 
-    public function destroy(int $id)
+    public function destroy(string $id)
     {
         $user = User::findOrFail($id);
 
