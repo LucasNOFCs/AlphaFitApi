@@ -15,7 +15,12 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasUuids;
 
-
+    public function hasPermissions(string $permissions): bool
+    {
+        return $this->roles()->whereHas('permissions', function ($query) use ($permissions) {
+            $query->where('name', $permissions);
+        })->exists();
+    }
     public function roles()
     {
         return $this->belongsToMany(
