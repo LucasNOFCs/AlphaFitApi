@@ -31,18 +31,27 @@ class MemberController extends Controller
     }
     public function store(StoreMemberRequest $request)
     {
-        $member = $this->service->store(
-            $request->validated()
-        );
-        return new MemberResource($member);
+        $data = $request->validated();
+        $member = $this->service->store($data);
+
+        return response()->json([
+            'message' => 'Member created successfully.',
+            'data' => new MemberResource($member)
+        ], 201);
     }
 
 
     public function update(UpdateMemberRequest $request, string $id)
     {
-        $member = $this->service->update($id, $request->validated());
-        return new MemberResource($member);
+        $data = $request->validated();
+        $member = $this->service->update($id, $data);
+
+        return response()->json([
+            'message' => 'Member updated successfully.',
+            'data' => new MemberResource($member)
+        ]);
     }
+
 
 
     public function destroy(string $id)
@@ -60,6 +69,9 @@ class MemberController extends Controller
             $request->validated()['plan_id']
         );
 
-        return new MemberResource($member);
+        return response()->json([
+            'message' => 'Plan assigned successfully.',
+            'data' => new MemberResource($member)
+        ]);
     }
 }

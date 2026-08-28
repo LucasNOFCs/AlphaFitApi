@@ -20,13 +20,18 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = $this->service->index();
-        return PaymentResource::collection($payments);  
+        return PaymentResource::collection($payments);
     }
 
     public function store(StorePaymentRequest $request)
     {
-        $payment = $this->service->store($request->validated());
-        return new PaymentResource($payment);
+        $data = $request->validated();
+        $payment = $this->service->store($data);
+
+        return response()->json([
+            'message' => 'Payment created successfully.',
+            'data' => new PaymentResource($payment)
+        ], 201);
     }
 
     public function show(string $id)
@@ -37,8 +42,13 @@ class PaymentController extends Controller
 
     public function update(UpdatePaymentRequest $request, string $id)
     {
-        $payment = $this->service->update($id, $request->validated());
-        return new PaymentResource($payment);
+        $data = $request->validated();
+        $payment = $this->service->update($id, $data);
+
+        return response()->json([
+            'message' => 'Payment updated successfully.',
+            'data' => new PaymentResource($payment)
+        ]);
     }
 
     public function destroy(string $id)
