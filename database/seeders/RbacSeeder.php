@@ -19,6 +19,9 @@ class RbacSeeder extends Seeder
             'members.assign_plan',
 
             'payments.create',
+            'payments.view',
+            'payments.update',
+            'payments.delete',
 
             'plans.view',
             'plans.create',

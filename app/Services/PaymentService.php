@@ -11,7 +11,7 @@ class PaymentService
         return Payment::all();
     }
 
-    public function show(int $id)
+    public function show(string $id)
     {
         return Payment::findOrFail($id);
     }
@@ -21,7 +21,7 @@ class PaymentService
         return Payment::create($data);
     }
 
-    public function update(int $id, array $data)
+    public function update(string $id, array $data)
     {
         $payment = Payment::findOrFail($id);
 
@@ -30,7 +30,7 @@ class PaymentService
         return $payment;
     }
 
-    public function destroy(int $id)
+    public function destroy(string $id)
     {
         $payment = Payment::findOrFail($id);
 

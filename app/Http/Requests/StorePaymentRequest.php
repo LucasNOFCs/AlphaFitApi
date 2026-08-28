@@ -23,7 +23,11 @@ class StorePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'amount' => ['required', 'decimal:2'],
+            'payment_date' => ['required', 'date'],
+            'status' => ['required', 'string', 'max:255'],
+            'member_id' => ['required', 'uuid' ,'exists:members,id'],
+            'plan_id' => ['required', 'uuid', 'exists:plans,id'],
         ];
     }
 }

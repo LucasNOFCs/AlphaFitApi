@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\MembersController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\PaymentController;
 
@@ -11,6 +11,6 @@ Route::get("/", function () {
 });
 
 Route::apiResource("users", UserController::class);
-Route::apiResource("members", MembersController::class);
+Route::apiResource("members", MemberController::class);
 Route::apiResource("plans", PlansController::class);
 Route::apiResource("payments", PaymentController::class);

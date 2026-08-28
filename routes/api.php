@@ -58,3 +58,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('member/{memberId}/assign-plan', [MemberController::class, 'assignPlan'])
         ->middleware('permission:members.assign-plan');
 });
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('payments', [PaymentController::class, 'index'])
+        ->middleware('permission:payments.view');
+
+    Route::get('payments/{id}', [PaymentController::class, 'show'])
+        ->middleware('permission:payments.view');
+
+    Route::post('payments', [PaymentController::class, 'store'])
+        ->middleware('permission:payments.create');
+
+    Route::match(['put', 'patch'], 'payments/{id}', [PaymentController::class, 'update'])
+        ->middleware('permission:payments.update');
+
+    Route::delete('payments/{id}', [PaymentController::class, 'destroy'])
+        ->middleware('permission:payments.delete');
+});
