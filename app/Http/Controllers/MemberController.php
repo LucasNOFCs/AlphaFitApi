@@ -44,6 +44,7 @@ class MemberController extends Controller
         return new MemberResource($member);
     }
 
+
     public function destroy(string $id)
     {
         $this->service->destroy($id);

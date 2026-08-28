@@ -2,47 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Resources\PaymentResource;
+use App\Http\Requests\StorePaymentRequest;
+use App\Http\Requests\UpdatePaymentRequest;
+use App\Services\PaymentService;
 
 class PaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    private PaymentService $service;
+
+    public function __construct(PaymentService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        //
+        $payments = $this->service->index();
+        return PaymentResource::collection($payments);  
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StorePaymentRequest $request)
     {
-        //
+        $payment = $this->service->store($request->validated());
+        return new PaymentResource($payment);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $payment = $this->service->show($id);
+        return new PaymentResource($payment);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdatePaymentRequest $request, string $id)
     {
-        //
+        $payment = $this->service->update($id, $request->validated());
+        return new PaymentResource($payment);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $this->service->destroy($id);
+        return response()->noContent();
     }
 }

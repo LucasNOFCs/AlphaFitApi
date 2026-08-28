@@ -23,7 +23,11 @@ class UpdatePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'amount' => ['sometimes', 'decimal:2'],
+            'payment_date' => ['sometimes', 'date'],
+            'status' => ['sometimes', 'string', 'max:255'],
+            'member_id' => ['sometimes', 'uuid' ,'exists:members,id'],
+            'plan_id' => ['sometimes', 'uuid', 'exists:plans,id'],
         ];
     }
 }
