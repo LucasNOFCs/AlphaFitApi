@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\HttpCache\Store;
@@ -20,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->service->index();
-        return $users;
+        return UserResource::collection($users);
     }
 
     public function show(string $id)
@@ -33,19 +34,27 @@ class UserController extends Controller
     {
         $data = $request->validated();
         $user = $this->service->store($data);
-        return $user;
+        
+        return response()->json([
+            'message' => 'User created successfully.',
+            'data' => new UserResource($user)
+        ], 201);
     }
 
     public function update(UpdateUserRequest $request, string $id)
     {
         $data = $request->validated();
         $user = $this->service->update($id, $data);
-        return $user;
+        
+        return response()->json([
+            'message' => 'User updated successfully.',
+            'data' => new UserResource($user)
+        ]);
     }
 
     public function destroy(string $id)
     {
         $user = $this->service->destroy($id);
-        return ["user" => $user, "message" => "User deleted successfully"];
+        return response()->noContent();
     }
 }
