@@ -1,4 +1,4 @@
-# AlphaFit API
+# Gym API
 
 RESTful API for gym management, developed with Laravel.
 
